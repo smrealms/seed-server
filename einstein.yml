@@ -1,0 +1,19 @@
+- hosts: einstein
+  remote_user: root
+  roles:
+    - role: jnv.unattended-upgrades
+      unattended_origins_patterns:
+        - 'o=${distro_id},a=${distro_codename}'
+        - 'o=${distro_id},a=${distro_codename}-updates'
+        - 'o=${distro_id},a=${distro_codename}-security'
+      unattended_mail: mrspock@smrealms.de
+      unattended_mail_only_on_error: true
+      unattended_remove_unused_dependencies: true
+    - role: oefenweb.ssh-keys
+      ssh_keys_authorized_keys:
+        - owner: root
+          src: files/ssh-keys/travdan.pub
+        - owner: root
+          src: files/ssh-keys/page.pub
+    - role: geerlingguy.docker
+      docker_compose_version: 1.22.0
