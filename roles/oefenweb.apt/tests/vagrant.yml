@@ -1,0 +1,7 @@
+# test file for apt
+---
+- hosts: all
+  remote_user: vagrant
+  become: true
+  roles:
+    - ../../

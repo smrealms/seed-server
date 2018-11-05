@@ -1,0 +1,95 @@
+# tasks file for apt
+---
+- name: update configuration file - /etc/apt/sources.list
+  template:
+    src: "etc/apt/sources.list.{{ ansible_distribution }}.j2"
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: 0644
+  register: apt_config_updated
+  when: apt_manage_sources_list
+  tags:
+    - configuration
+    - apt
+    - apt-configuration
+
+- name: update
+  apt:
+    update_cache: true
+    cache_valid_time: "{{ 0 if apt_config_updated is defined and apt_config_updated.changed else apt_update_cache_valid_time }}"
+  when: apt_update
+  tags:
+    - configuration
+    - apt
+    - apt-update
+
+- name: dpkg --configure
+  command: dpkg --configure -a
+  changed_when: _dpkg_configure.stdout_lines | length
+  register: _dpkg_configure
+  when: apt_dpkg_configure
+  tags:
+    - configuration
+    - apt
+    - apt-dpkg-configure
+
+- name: install dependencies
+  apt:
+    name: "{{ apt_dependencies }}"
+    state: "{{ apt_install_state }}"
+  tags:
+    - configuration
+    - apt
+    - apt-dependencies
+
+- name: upgrade
+  apt:
+    upgrade: "{{ apt_upgrade_type }}"
+    update_cache: true
+    dpkg_options: "{{ apt_upgrade_dpkg_options | join(',') }}"
+  when: apt_upgrade
+  tags:
+    - configuration
+    - apt
+    - apt-upgrade
+
+- name: clean
+  command: apt-get -y clean
+  args:
+    warn: no
+  changed_when: false
+  when: apt_clean
+  tags:
+    - configuration
+    - apt
+    - apt-clean
+
+- name: autoremove
+  apt:
+    autoremove: true
+    dpkg_options: "{{ apt_upgrade_dpkg_options | join(',') }}"
+  when: apt_autoremove
+  tags:
+    - configuration
+    - apt
+    - apt-autoremove
+
+- name: install
+  apt:
+    name: "{{ apt_install }}"
+    state: "{{ apt_install_state }}"
+  tags:
+    - configuration
+    - apt
+    - apt-install
+
+- name: remove
+  apt:
+    name: "{{ apt_remove }}"
+    state: absent
+    purge: "{{ apt_remove_purge }}"
+  tags:
+    - configuration
+    - apt
+    - apt-remove

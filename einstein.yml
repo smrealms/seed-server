@@ -15,5 +15,11 @@
           src: files/ssh-keys/travdan.pub
         - owner: root
           src: files/ssh-keys/page.pub
+    - role: oefenweb.apt
+      apt_dependencies:
+        - python3-apt
+      apt_upgrade: false
+      apt_install:
+        - vim
     - role: geerlingguy.docker
       docker_compose_version: 1.22.0
