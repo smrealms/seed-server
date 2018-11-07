@@ -1,0 +1,2 @@
+key1._domainkey IN TXT ( "v=DKIM1; k=rsa; "
+  "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4ax1Oo7hCPq4VQKeIsG+2n/UcztCyZlH82dIGzbxYDXxGtF4Rq1k0h4pxAaKf0Bb9s6jXAT2bdff3+dHsTUYkOQeTza1XPshcIGVDEasvE1K8H5dEIuii1zW7maJ5fhKPiQNnmGpRSqFAucOUi/1gfbX3l6JH0FfUfI3fO8sEpwIDAQAB" )  ; ----- DKIM key key1 for localhost

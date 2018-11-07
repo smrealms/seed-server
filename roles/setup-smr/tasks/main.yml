@@ -6,7 +6,7 @@
     repo: https://github.com/smrealms/dockerize.git
     dest: /root/dockerize
 
-- name: Copy and decrypt .env file
+- name: Copy and decrypt configuration files
   copy:
-    src: files/env.secrets
-    dest: /root/dockerize/.env
+    src: files/
+    dest: /root/dockerize/
