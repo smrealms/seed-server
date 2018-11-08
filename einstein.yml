@@ -9,12 +9,18 @@
       unattended_mail: mrspock@smrealms.de
       unattended_mail_only_on_error: true
       unattended_remove_unused_dependencies: true
+      tags:
+        - system
+        - updates
     - role: oefenweb.ssh-keys
       ssh_keys_authorized_keys:
         - owner: root
           src: files/ssh-keys/travdan.pub
         - owner: root
           src: files/ssh-keys/page.pub
+      tags:
+        - system
+        - access
     - role: oefenweb.apt
       apt_dependencies:
         - python3-apt
@@ -22,8 +28,14 @@
       apt_install:
         - git
         - vim
+      tags:
+        - system
+        - packages
     - role: geerlingguy.docker
       docker_compose_version: 1.22.0
+      tags:
+        - system
+        - docker
     - role: setup-smr
       tags:
         - setup-smr
