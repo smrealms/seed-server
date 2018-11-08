@@ -24,4 +24,6 @@
         - vim
     - role: geerlingguy.docker
       docker_compose_version: 1.22.0
-    - setup-smr
+    - role: setup-smr
+      tags:
+        - setup-smr
