@@ -28,9 +28,44 @@
 - name: Checkout git repository 'smrealms/dockerize'
   git:
     repo: https://github.com/smrealms/dockerize.git
-    dest: /root/dockerize
+    dest: "{{ smr_home_dir }}"
 
 - name: Copy and decrypt configuration files
   copy:
     src: files/
-    dest: /root/dockerize/
+    dest: "{{ smr_home_dir }}"
+
+- name: Restore backups from s3
+  shell: |
+    . {{ smr_home_dir }}/.env && docker run --rm \
+      -e "ACCESS_KEY=${S3_ACCESS_KEY}" \
+      -e "SECRET_KEY=${S3_SECRET_KEY}" \
+      -e "S3_PATH=s3://smrealms-backup" \
+      -e "PARAMS=--skip-existing" \
+      -v {{ smr_home_dir }}/backup/daily:/data/daily:rw \
+      -v {{ smr_home_dir }}/player-upload:/data/player-upload:rw \
+      hemberger/docker-backup-to-s3 get
+
+- name: Fix file permissions for player images
+  file:
+    path: "{{ smr_home_dir }}/player-upload"
+    recurse: yes
+    owner: www-data
+    group: www-data
+
+- name: Start mysql server to restore database
+  shell: docker-compose up --detach mysql
+  args:
+    chdir: "{{ smr_home_dir }}"
+    creates: "{{ smr_home_dir }}/data/db"
+
+- name: Restore database dump
+  shell: ./restore_database.sh
+  args:
+    chdir: "{{ smr_home_dir }}/backup"
+    creates: "{{ smr_home_dir }}/data/db/smr_live/account.frm"
+
+- name: Start SMR
+  shell: docker-compose up --detach smr
+  args:
+    chdir: "{{ smr_home_dir }}"
