@@ -1,0 +1,4 @@
+---
+
+# where smr will be installed
+smr_home_dir: /root/dockerize
