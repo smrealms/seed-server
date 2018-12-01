@@ -25,6 +25,12 @@
     regexp: "^alias l=.*$"
     line: "alias l='ls -alF'"
 
+- name: Add alias for docker-compose
+  lineinfile:
+    path: /root/.bash_aliases
+    line: "alias dc='docker-compose'"
+    create: yes
+
 - name: Checkout git repository 'smrealms/dockerize'
   git:
     repo: https://github.com/smrealms/dockerize.git
