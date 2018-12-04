@@ -114,7 +114,7 @@
     chdir: "{{ smr_home_dir }}/backup"
     creates: "{{ smr_home_dir }}/data/db/smr_classic_history/game.frm"
 
-- name: Set password to MySql user 'smr'
+- name: Update password to MySql user 'smr' for when changed on redeploy
   shell: echo "ALTER USER smr IDENTIFIED BY '{{ mysql_pass }}';" | docker exec -i smr-mysql mysql
 
 - name: Grant permissions to smr_12_history
