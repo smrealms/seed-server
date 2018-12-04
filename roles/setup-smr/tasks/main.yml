@@ -66,6 +66,22 @@
     owner: www-data
     group: www-data
 
+- name: Generate MySql password
+  set_fact:
+    mysql_pass: "{{ lookup('password', '/dev/null chars=ascii_letters,digits length=32') }}"
+
+- name: Put MySql password in config file
+  replace:
+    path: "{{ smr_home_dir }}/config/SmrMySqlSecrets.inc"
+    regexp: "private static \\$password = '.*';"
+    replace: "private static $password = '{{ mysql_pass }}';"
+
+- name: Put MySql password in env file
+  replace:
+    path: "{{ smr_home_dir }}/.env"
+    regexp: "MYSQL_PASSWORD=.*"
+    replace: "MYSQL_PASSWORD={{ mysql_pass }}"
+
 - name: Start mysql server to restore database
   shell: docker-compose up --detach mysql
   args:
@@ -98,30 +114,8 @@
     chdir: "{{ smr_home_dir }}/backup"
     creates: "{{ smr_home_dir }}/data/db/smr_classic_history/game.frm"
 
-- name: Generate MySql password
-  set_fact:
-    mysql_pass: "{{ lookup('password', '/dev/null chars=ascii_letters,digits length=32') }}"
-
-- name: Put MySql password in config file
-  replace:
-    path: "{{ smr_home_dir }}/config/SmrMySqlSecrets.inc"
-    regexp: "private static \\$password = '.*';"
-    replace: "private static $password = '{{ mysql_pass }}';"
-
-- name: Put MySql password in env file
-  replace:
-    path: "{{ smr_home_dir }}/.env"
-    regexp: "MYSQL_PASSWORD=.*"
-    replace: "MYSQL_PASSWORD={{ mysql_pass }}"
-
-- name: Generate MySql user 'smr'
-  shell: echo "CREATE USER IF NOT EXISTS smr;" | docker exec -i smr-mysql mysql
-
 - name: Set password to MySql user 'smr'
   shell: echo "ALTER USER smr IDENTIFIED BY '{{ mysql_pass }}';" | docker exec -i smr-mysql mysql
-
-- name: Grant permissions to smr_live
-  shell: echo "GRANT ALL ON smr_live.* TO smr;" | docker exec -i smr-mysql mysql
 
 - name: Grant permissions to smr_12_history
   shell: echo "GRANT SELECT ON smr_12_history.* TO smr;" | docker exec -i smr-mysql mysql
