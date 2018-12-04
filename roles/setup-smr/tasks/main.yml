@@ -55,6 +55,7 @@
       -e "S3_PATH=s3://smrealms-backup" \
       -e "PARAMS=--skip-existing" \
       -v {{ smr_home_dir }}/backup/daily:/data/daily:rw \
+      -v {{ smr_home_dir }}/backup/archive:/data/archive:rw \
       -v {{ smr_home_dir }}/player-upload:/data/player-upload:rw \
       hemberger/docker-backup-to-s3 get
 
