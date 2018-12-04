@@ -36,6 +36,12 @@
     repo: https://github.com/smrealms/dockerize.git
     dest: "{{ smr_home_dir }}"
 
+- name: Create acme.json for traefik
+  file:
+    path: "{{ smr_home_dir }}/traefik/acme.json"
+    state: touch
+    mode: 0600
+
 - name: Copy and decrypt configuration files
   copy:
     src: files/
