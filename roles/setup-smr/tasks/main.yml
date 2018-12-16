@@ -123,8 +123,8 @@
 - name: Grant permissions to smr_classic_history
   shell: echo "GRANT SELECT ON smr_classic_history.* TO smr;" | docker exec -i smr-mysql mysql
 
-- name: Start SMR
-  shell: docker-compose up --detach smr
+- name: Start SMR and related services
+  shell: docker-compose up --detach smr discord irc
   args:
     chdir: "{{ smr_home_dir }}"
 
