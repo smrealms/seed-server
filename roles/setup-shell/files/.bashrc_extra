@@ -1,0 +1,14 @@
+# Extra configuration to be sourced in ~/.bashrc
+
+# Don't put some specific simple commands into history
+export HISTIGNORE="ls:l:pwd"
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+export HISTSIZE=1000000
+export HISTFILESIZE=1000000
+
+# Type a partial command, then use up/down arrows to search the history
+# to find matching commands
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+# PgDown will clear line
+bind '"\e[6~": kill-whole-line'

@@ -1,0 +1,68 @@
+# vim: filetype=gitconfig
+
+[blame]
+    # Do not show the time of commit in svn blame, only the date.
+    date = short
+[push]
+    default = tracking
+[color]
+    # Color all output that is capable of color
+    ui = auto
+[color "diff"]
+    old = blue bold
+    new = green bold
+[color "diff-highlight"]
+    newHighlight = green bold 22
+    newNormal = green bold
+    oldHighlight = blue bold 52
+    oldNormal = blue bold
+[core]
+    # Show output of commands that use pager (e.g. diff) in less format 
+    # and with color and then clear the screen after quitting.
+    # Use -x4 to display tabs as 4 spaces.
+    pager = diff-highlight | less -x4 -S -+$LESS --RAW-CONTROL-CHARS
+[advice]
+    # Shut up a bit
+    pushNonFastForward = false
+[diff]
+    noprefix = true
+    renames = true
+[merge]
+    conflictstyle = diff3
+[rebase]
+    stat = true
+[format]
+    # Customized for readability (log, show, whatchanged, etc.)
+    pretty = %C(blue bold)==========================================================================%C(reset)%n%C(yellow)Commit: %H%C(reset)%n%C(yellow)Author: %aN <%aE>%C(reset)%n%C(yellow)Date:   %aD%C(reset)%n%n  %-s%n%+b
+[grep]
+    lineNumber = true
+    extendedRegexp = true
+[alias]
+    # Show (in svn-style) expected changes in the next git pull.
+    prepull = "!sh -c 'git fetch >/dev/null 2>&1 && git log --name-status master..origin/master'"
+    # An svn-like status display.
+    st = status -sb
+    # Show the logs for all unpushed commits
+    prepush = log --name-status --branches --not --remotes
+    # Alternative way to show log in a more compact way
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    # Show the 5 most recent logs from at or below the current directory
+    recent = log -n 5 --name-status --date=relative -- .
+    # Easier committing
+    c = commit
+    # Easier diffing
+    d = diff
+    # Easier diffing of staged files
+    diffs = diff --staged
+    # Pull with rebase
+    pullr = pull --rebase
+    # SVN-style log
+    logns = log --name-status
+    # Full diff log ignoring whitespace changes
+    logdiff = log -p --ignore-space-change
+    logd = log -p --ignore-space-change
+    # Solve 'git: git is not a git command'
+    # See http://caiustheory.com/git-git-git-git-git/
+    git = !exec git
+[pager]
+    branch = false

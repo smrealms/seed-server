@@ -1,36 +1,6 @@
 ---
 # tasks file for setup-smr
 
-- name: Force a color prompt
-  lineinfile:
-    path: /root/.bashrc
-    insertafter: "^#force_color_prompt=.*$"
-    line: "force_color_prompt=yes"
-
-- name: Make root color prompt red (so you know it's root)
-  replace:
-    path: /root/.bashrc
-    regexp: "32m"
-    replace: "31m"
-
-- name: Change default 'll' alias
-  lineinfile:
-    path: /root/.bashrc
-    regexp: "^alias ll=.*$"
-    line: "alias ll='ls -CF'"
-
-- name: Change default 'l' alias
-  lineinfile:
-    path: /root/.bashrc
-    regexp: "^alias l=.*$"
-    line: "alias l='ls -alF'"
-
-- name: Add alias for docker-compose
-  lineinfile:
-    path: /root/.bash_aliases
-    line: "alias dc='docker-compose'"
-    create: yes
-
 - name: Checkout git repository 'smrealms/dockerize'
   git:
     repo: https://github.com/smrealms/dockerize.git

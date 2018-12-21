@@ -36,6 +36,9 @@
       tags:
         - system
         - docker
+    - role: setup-shell
+      tags:
+        - setup-shell
     - role: setup-smr
       tags:
         - setup-smr
