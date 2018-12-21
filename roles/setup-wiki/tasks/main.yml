@@ -1,0 +1,23 @@
+---
+# tasks file for setup-wiki
+
+- name: Checkout git repository 'smrealms/wiki-server'
+  git:
+    repo: https://github.com/smrealms/wiki-server.git
+    dest: "{{ wiki_home_dir }}"
+    version: master
+
+- name: Copy and decrypt configuration files
+  copy:
+    src: files/
+    dest: "{{ wiki_home_dir }}"
+
+- name: Restrict .pem file permissions for wiki.js
+  file:
+    path: "{{ wiki_home_dir }}/wiki-data.pem"
+    mode: 0600
+
+- name: Start wiki service and dependencies
+  command: docker-compose up --detach wiki
+  args:
+    chdir: "{{ wiki_home_dir }}"

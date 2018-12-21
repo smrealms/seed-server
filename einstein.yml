@@ -42,3 +42,6 @@
     - role: setup-smr
       tags:
         - setup-smr
+    - role: setup-wiki
+      tags:
+        - setup-wiki
