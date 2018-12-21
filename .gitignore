@@ -2,3 +2,5 @@
 .DS_Store
 
 *.retry
+
+/.ansible_secret
