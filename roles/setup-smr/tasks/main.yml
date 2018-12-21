@@ -54,7 +54,7 @@
     replace: "MYSQL_PASSWORD={{ mysql_pass }}"
 
 - name: Start mysql server to restore database
-  shell: docker-compose up --detach mysql
+  command: docker-compose up --detach mysql
   args:
     chdir: "{{ smr_home_dir }}"
 
@@ -68,19 +68,19 @@
     seconds: 10
 
 - name: Restore database 'smr_live'
-  shell: ./restore_smr_live.sh
+  command: ./restore_smr_live.sh
   args:
     chdir: "{{ smr_home_dir }}/backup"
     creates: "{{ smr_home_dir }}/data/db/smr_live/game.frm"
 
 - name: Restore database 'smr_12_history'
-  shell: ./restore_smr_archive.sh smr_12_history.sql.bz2
+  command: ./restore_smr_archive.sh smr_12_history.sql.bz2
   args:
     chdir: "{{ smr_home_dir }}/backup"
     creates: "{{ smr_home_dir }}/data/db/smr_12_history/game.frm"
 
 - name: Restore database 'smr_classic_history'
-  shell: ./restore_smr_archive.sh smr_classic_history.sql.bz2
+  command: ./restore_smr_archive.sh smr_classic_history.sql.bz2
   args:
     chdir: "{{ smr_home_dir }}/backup"
     creates: "{{ smr_home_dir }}/data/db/smr_classic_history/game.frm"
@@ -95,7 +95,7 @@
   shell: echo "GRANT SELECT ON smr_classic_history.* TO smr;" | docker exec -i smr-mysql mysql
 
 - name: Start SMR and related services
-  shell: docker-compose up --detach smr discord irc
+  command: docker-compose up --detach smr discord irc
   args:
     chdir: "{{ smr_home_dir }}"
 
