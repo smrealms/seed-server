@@ -48,3 +48,6 @@
     - role: setup-beta
       tags:
         - setup-beta
+    - role: setup-webboard
+      tags:
+        - setup-webboard
