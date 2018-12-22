@@ -45,3 +45,6 @@
     - role: setup-wiki
       tags:
         - setup-wiki
+    - role: setup-beta
+      tags:
+        - setup-beta

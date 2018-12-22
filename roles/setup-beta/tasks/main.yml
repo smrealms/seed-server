@@ -1,0 +1,13 @@
+---
+# tasks file for setup-beta
+
+- name: Checkout git repository 'smrealms/smr'
+  git:
+    repo: git@github.com:smrealms/smr
+    dest: "{{ beta_home_dir }}"
+    version: master
+
+- name: Copy and decrypt configuration files
+  copy:
+    src: files/
+    dest: "{{ beta_home_dir }}"
