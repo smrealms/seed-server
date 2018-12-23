@@ -12,3 +12,6 @@ bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 # PgDown will clear line
 bind '"\e[6~": kill-whole-line'
+
+# Set terminal editor (e.g. for git commit)
+export EDITOR=vim
