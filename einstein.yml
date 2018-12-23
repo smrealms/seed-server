@@ -36,18 +36,27 @@
       tags:
         - system
         - docker
+    - role: nagios
+      tags:
+        - system
+        - nagios
     - role: setup-shell
       tags:
-        - setup-shell
+        - system
+        - shell
     - role: setup-smr
       tags:
-        - setup-smr
+        - smr
+        - game
     - role: setup-wiki
       tags:
-        - setup-wiki
+        - smr
+        - wiki
     - role: setup-beta
       tags:
-        - setup-beta
+        - smr
+        - beta
     - role: setup-webboard
       tags:
-        - setup-webboard
+        - smr
+        - webboard

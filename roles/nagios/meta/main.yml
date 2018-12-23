@@ -1,0 +1,7 @@
+dependencies:
+  - role: oefenweb.apt
+    apt_dependencies:
+      - python3-apt
+    apt_upgrade: false
+    apt_install:
+      - nagios-plugins-basic
