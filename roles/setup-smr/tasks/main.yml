@@ -19,16 +19,9 @@
     dest: "{{ smr_home_dir }}"
 
 - name: Restore backups from s3
-  shell: |
-    . {{ smr_home_dir }}/.env && docker run --rm \
-      -e "ACCESS_KEY=${S3_ACCESS_KEY}" \
-      -e "SECRET_KEY=${S3_SECRET_KEY}" \
-      -e "S3_PATH=s3://smrealms-backup" \
-      -e "PARAMS=--skip-existing" \
-      -v {{ smr_home_dir }}/backup/daily:/data/daily:rw \
-      -v {{ smr_home_dir }}/backup/archive:/data/archive:rw \
-      -v {{ smr_home_dir }}/player-upload:/data/player-upload:rw \
-      hemberger/docker-backup-to-s3 get
+  command: docker-compose run --rm -e PARAMS=--skip-existing backup-s3 get
+  args:
+    chdir: "{{ smr_home_dir }}"
 
 - name: Fix file permissions for player images
   file:
