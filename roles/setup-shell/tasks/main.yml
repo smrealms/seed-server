@@ -1,6 +1,14 @@
 ---
 # tasks file for setup-shell
 
+- name: Set up authorized keys for SSH access
+  authorized_key:
+    user: root
+    key: '{{ item }}'
+  with_file:
+    - ../../files/ssh-keys/travdan.pub
+    - ../../files/ssh-keys/page.pub
+
 - name: Force a color prompt
   lineinfile:
     path: /root/.bashrc
