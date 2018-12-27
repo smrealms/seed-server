@@ -1,9 +1,0 @@
-# test file for apt
----
-- hosts: localhost
-  connection: local
-  become: true
-  roles:
-    - ../../
-  vars:
-    apt_upgrade: false

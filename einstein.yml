@@ -12,7 +12,7 @@
       tags:
         - system
         - updates
-    - role: oefenweb.ssh-keys
+    - role: Oefenweb.ssh_keys
       ssh_keys_authorized_keys:
         - owner: root
           src: files/ssh-keys/travdan.pub
@@ -21,7 +21,7 @@
       tags:
         - system
         - access
-    - role: oefenweb.apt
+    - role: Oefenweb.apt
       apt_dependencies:
         - python3-apt
       apt_upgrade: false

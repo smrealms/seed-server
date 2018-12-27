@@ -2,6 +2,8 @@
 
 set -eo pipefail
 
+ansible-galaxy install -p roles -r requirements.yml
+
 TAGS="${1}"
 
 if [[ -n "${TAGS}" ]]; then

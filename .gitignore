@@ -4,3 +4,9 @@
 *.retry
 
 /.ansible_secret
+
+# galaxy roles
+/roles/Oefenweb.apt
+/roles/Oefenweb.ssh_keys
+/roles/geerlingguy.docker
+/roles/jnv.unattended-upgrades
