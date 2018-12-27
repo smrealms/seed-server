@@ -1,3 +1,10 @@
+# Roles to install from Ansible Galaxy
+
 - src: geerlingguy.docker
+  version: 2.5.2
+
 - src: jnv.unattended-upgrades
+  version: v1.7.0
+
 - src: Oefenweb.apt
+  version: v2.1.9
