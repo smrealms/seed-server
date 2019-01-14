@@ -2,6 +2,7 @@
 - name: Create group 'nagios'
   group:
     name: nagios
+    system: yes
     state: present
 
 - name: Create user 'nagios'
