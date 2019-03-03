@@ -6,13 +6,18 @@ Ansible repository to install everything that is needed to run SMR
 
 Create the file `~/.ansible_einstein.secret` or `./.ansible_secret` on your
 machine. Ask @MichaelKunze for the content.
-It contains the password to decrypt secrets in this repository
+It contains the password to decrypt secrets in this repository.
 
-Make sure you have the latest `ansible` installed on your system
+Make sure you have the latest `ansible` installed on your system, e.g.
+```
+pip install ansible
+```
 
 ## Execution
 
-`./deploy.sh [role-name]`
+```
+./deploy.sh [role-name]
+```
 
 #### Arguments
 
