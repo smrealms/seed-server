@@ -1,8 +1,8 @@
 <?php
 
 trait SmrMySqlSecrets {
+	protected static $databaseName = 'smr_live';
 	private static $host = 'smr-mysql';
-	private static $databaseName = 'smr_live';
 	private static $user = 'smr';
 	private static $password = 'XXX';
 
@@ -10,6 +10,6 @@ trait SmrMySqlSecrets {
 	private static $socket = null;
 
 	// history databases
-	private static $dbName_Smr12History = 'smr_12_history';
-	private static $dbName_SmrClassicHistory = 'smr_classic_history';
+	protected static $dbName_Smr12History = 'smr_12_history';
+	protected static $dbName_SmrClassicHistory = 'smr_classic_history';
 }
