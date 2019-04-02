@@ -37,3 +37,7 @@
     dest: /usr/local/bin/diff-highlight
     remote_src: yes
     mode: a+x
+
+- name: Set system clock to the UTC timezone
+  timezone:
+    name: UTC
