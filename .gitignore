@@ -5,6 +5,9 @@
 
 /.ansible_secret
 
+# playbook logging
+/ansible.log
+
 # galaxy roles
 /roles/Oefenweb.apt
 /roles/geerlingguy.docker
