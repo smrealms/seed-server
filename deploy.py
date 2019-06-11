@@ -29,7 +29,13 @@ def main():
     else:
         tags = ''
 
-    cmd = "ansible-playbook einstein.yml --vault-id {} {}".format(secrets_file, tags)
+    # Perform a dry-run if requested
+    if args.dry_run:
+        dry_run = '--check'
+    else:
+        dry_run = ''
+
+    cmd = "ansible-playbook einstein.yml --vault-id {} {} {}".format(secrets_file, tags, dry_run)
     print("Running: {}".format(cmd))
     sp.check_call(shlex.split(cmd))
 
