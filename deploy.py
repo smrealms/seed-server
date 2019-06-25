@@ -11,10 +11,17 @@ def main():
         help="If specified, limit deployment to these tags.")
     parser.add_argument('-d', '--dry-run', action='store_true',
         help="If specified, perform a dry run of the deployment.")
+    parser.add_argument('--force', action='store_true',
+        help="Forward this option to ansible-galaxy to update requirements.")
     args = parser.parse_args()
 
     # Install the roles that we're using from the Ansible Galaxy.
-    cmd = "ansible-galaxy install -p roles -r requirements.yml"
+    if args.force:
+        force = '--force'
+    else:
+        force = ''
+    cmd = "ansible-galaxy install -p roles -r requirements.yml {}".format(force)
+    print("Running: {}".format(cmd))
     sp.check_call(shlex.split(cmd))
 
     secrets_file = '.ansible_secret'
