@@ -41,3 +41,8 @@
 - name: Set system clock to the UTC timezone
   timezone:
     name: UTC
+
+- name: Create a directory to output logs
+  file:
+    path: /root/logs
+    state: directory
