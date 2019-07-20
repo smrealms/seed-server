@@ -104,3 +104,12 @@
     name: docker cleanup
     special_time: daily
     job: docker image prune -f > /dev/null
+
+- name: Install a cron job to run the npc script
+  cron:
+    name: Run the live NPC script
+    special_time: hourly
+    job: >
+        cd {{ smr_home_dir }} &&
+        LOGFILE=$(date "+/root/logs/live_npc_\%Y-\%m-\%d_\%H-\%M-\%S.log") &&
+        /usr/local/bin/docker-compose run --rm npc > $LOGFILE 2>&1
