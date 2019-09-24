@@ -1,6 +1,5 @@
 <?php
 
-const NPC_GAME_ID = 128;
 const NPC_LOG_TO_DATABASE = false;
 
 const NPC_LOW_TURNS = 100;
