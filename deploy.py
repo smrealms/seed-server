@@ -8,7 +8,8 @@ import shlex
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('tags', nargs='*',
-        help="If specified, limit deployment to these tags.")
+        help="If specified, limit deployment to these tags. "
+             "See einstein.yml for valid tags (e.g. system, game, beta).")
     parser.add_argument('-d', '--dry-run', action='store_true',
         help="If specified, perform a dry run of the deployment.")
     parser.add_argument('--force', action='store_true',
