@@ -43,7 +43,7 @@ def main():
     else:
         dry_run = ''
 
-    cmd = "ansible-playbook einstein.yml --vault-id {} {} {}".format(secrets_file, tags, dry_run)
+    cmd = "ansible-playbook einstein.yml -v --vault-id {} {} {}".format(secrets_file, tags, dry_run)
     print("Running: {}".format(cmd))
     sp.check_call(shlex.split(cmd))
 
