@@ -18,10 +18,12 @@
     src: files/
     dest: "{{ smr_home_dir }}"
 
+# NOTE: Currently this will fail due to improper handling of glacier objects
 - name: Restore backups from s3
   command: docker-compose run --rm -e PARAMS=--skip-existing backup-s3 get
   args:
     chdir: "{{ smr_home_dir }}"
+    creates: "{{ smr_home_dir }}/backup/archive/smr_12_history.sql.bz2"
 
 - name: Fix file permissions for player images
   file:
