@@ -14,6 +14,8 @@ def main():
         help="If specified, perform a dry run of the deployment.")
     parser.add_argument('--force', action='store_true',
         help="Forward this option to ansible-galaxy to update requirements.")
+    parser.add_argument('-v', '--verbose', action='count', default=1,
+        help="Add extra verbosity to the ansible-playbook command.")
     args = parser.parse_args()
 
     # Install the roles that we're using from the Ansible Galaxy.
@@ -34,8 +36,11 @@ def main():
     # Perform a dry-run if requested
     dry_run = '--check' if args.dry_run else ''
 
-    cmd = "ansible-playbook einstein.yml -v --vault-id {} {} {}".format(secrets_file, tags, dry_run)
-    print("Running: {}".format(cmd))
+    # Add verbosity if requested
+    verbose = '-' + 'v' * args.verbose if args.verbose else ''
+
+    cmd = f"ansible-playbook einstein.yml {verbose} --vault-id {secrets_file} {tags} {dry_run}"
+    print("Running:", cmd)
     sp.check_call(shlex.split(cmd))
 
 if __name__ == "__main__":
