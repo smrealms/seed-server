@@ -17,10 +17,7 @@ def main():
     args = parser.parse_args()
 
     # Install the roles that we're using from the Ansible Galaxy.
-    if args.force:
-        force = '--force'
-    else:
-        force = ''
+    force = '--force' if args.force else ''
     cmd = "ansible-galaxy install -p roles -r requirements.yml {}".format(force)
     print("Running: {}".format(cmd))
     sp.check_call(shlex.split(cmd))
@@ -32,16 +29,10 @@ def main():
             raise UserWarning('Secrets file not found!')
 
     # Limit deployment to specific tags, if specified.
-    if args.tags:
-        tags = '--tags "{}"'.format(','.join(args.tags))
-    else:
-        tags = ''
+    tags = '--tags "{}"'.format(','.join(args.tags)) if args.tags else ''
 
     # Perform a dry-run if requested
-    if args.dry_run:
-        dry_run = '--check'
-    else:
-        dry_run = ''
+    dry_run = '--check' if args.dry_run else ''
 
     cmd = "ansible-playbook einstein.yml -v --vault-id {} {} {}".format(secrets_file, tags, dry_run)
     print("Running: {}".format(cmd))
