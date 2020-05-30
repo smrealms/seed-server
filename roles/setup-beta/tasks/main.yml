@@ -7,9 +7,16 @@
     dest: "{{ beta_home_dir }}"
     version: master
 
-- name: Copy and decrypt configuration files
+- name: Expand and copy configuration files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ beta_home_dir }}/{{ item.path }}"
+  with_filetree: files/
+  when: item.state == 'file'
+
+- name: Decrypt and copy opendkim files
   copy:
-    src: files/
+    src: files/opendkim
     dest: "{{ beta_home_dir }}"
 
 - name: Install a cron job to run the npc script
