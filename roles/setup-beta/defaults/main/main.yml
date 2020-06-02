@@ -3,6 +3,7 @@
 # where smr beta repo will be installed
 beta_home_dir: /root/beta
 
+beta_mysql_host: beta-mysql
 beta_mysql_root_password: "{{ vault_beta_mysql_root_password }}"
 beta_mysql_password: "{{ vault_beta_mysql_password }}"
 

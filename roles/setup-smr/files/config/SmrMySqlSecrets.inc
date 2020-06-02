@@ -2,7 +2,7 @@
 
 trait SmrMySqlSecrets {
 	protected static $databaseName = 'smr_live';
-	private static $host = 'smr-mysql';
+	private static $host = '{{ smr_mysql_host }}';
 	private static $user = 'smr';
 	private static $password = '{{ smr_mysql_password }}';
 
