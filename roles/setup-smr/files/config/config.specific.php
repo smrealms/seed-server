@@ -30,6 +30,6 @@ const BUG_REPORT_TO_ADDRESSES = [
 const SMTP_HOSTNAME = 'smr-smtp';
 
 const HISTORY_DATABASES = [
-	'SmrClassicHistoryMySqlDatabase' => 'old_account_id',
-	'Smr12HistoryMySqlDatabase' => 'old_account_id2',
+	'smr_classic_history' => 'old_account_id',
+	'smr_12_history' => 'old_account_id2',
 ];

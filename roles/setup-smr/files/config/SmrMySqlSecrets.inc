@@ -8,8 +8,4 @@ trait SmrMySqlSecrets {
 
 	private static $port = null;
 	private static $socket = null;
-
-	// history databases
-	protected static $dbName_Smr12History = 'smr_12_history';
-	protected static $dbName_SmrClassicHistory = 'smr_classic_history';
 }
