@@ -108,5 +108,6 @@
     special_time: hourly
     job: >
         cd {{ smr_home_dir }} &&
-        LOGFILE=$(date "+/root/logs/live_npc_\%Y-\%m-\%d_\%H-\%M-\%S.log") &&
+        LOGFILE=$(date "+/root/logs/live_npc/\%Y-\%m-\%d/\%H-\%M-\%S.log") &&
+        mkdir -p $(dirname $LOGFILE) &&
         /usr/local/bin/docker-compose run --rm npc > $LOGFILE 2>&1
