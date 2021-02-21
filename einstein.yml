@@ -23,7 +23,7 @@
         - system
         - packages
     - role: geerlingguy.docker
-      docker_compose_version: 1.23.2
+      docker_compose_version: 1.28.4
       tags:
         - system
         - docker
