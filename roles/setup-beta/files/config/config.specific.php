@@ -14,6 +14,9 @@ const FACEBOOK_APP_SECRET = '{{ beta_facebook_app_secret }}';
 const TWITTER_CONSUMER_KEY = '{{ twitter_consumer_key }}';
 const TWITTER_CONSUMER_SECRET = '{{ twitter_consumer_secret }}';
 
+const GOOGLE_CLIENT_ID = '{{ google_client_id }}';
+const GOOGLE_CLIENT_SECRET = '{{ google_client_secret }}';
+
 const GOOGLE_ANALYTICS_ID = '{{ beta_google_analytics_id }}';
 
 const ENABLE_NPCS_CHESS = false;
