@@ -5,7 +5,7 @@
   git:
     repo: https://github.com/smrealms/dockerize.git
     dest: "{{ smr_home_dir }}"
-    version: master
+    version: main
 
 - name: Create acme.json for traefik
   file:

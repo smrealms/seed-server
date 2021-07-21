@@ -39,7 +39,7 @@
     extendedRegexp = true
 [alias]
     # Show (in svn-style) expected changes in the next git pull.
-    prepull = "!sh -c 'git fetch >/dev/null 2>&1 && git log --name-status master..origin/master'"
+    prepull = "!sh -c 'git fetch >/dev/null 2>&1 && git log --name-status main..origin/main'"
     # An svn-like status display.
     st = status -sb
     # Show the logs for all unpushed commits

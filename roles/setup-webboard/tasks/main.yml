@@ -5,7 +5,7 @@
   git:
     repo: https://github.com/smrealms/webboard.git
     dest: "{{ webboard_home_dir }}"
-    version: master
+    version: main
 
 - name: Copy and decrypt configuration files
   copy:

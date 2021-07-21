@@ -5,7 +5,7 @@
   git:
     repo: https://github.com/smrealms/wiki-server.git
     dest: "{{ wiki_home_dir }}"
-    version: master
+    version: main
 
 - name: Copy and decrypt configuration files
   copy:

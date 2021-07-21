@@ -5,7 +5,7 @@
   git:
     repo: git@github.com:smrealms/smr
     dest: "{{ beta_home_dir }}"
-    version: master
+    version: main
 
 - name: Expand and copy configuration files
   template:
