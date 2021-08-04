@@ -24,12 +24,6 @@ def main():
     print("Running: {}".format(cmd))
     sp.check_call(shlex.split(cmd))
 
-    secrets_file = '.ansible_secret'
-    if not os.path.exists(secrets_file):
-        secrets_file = os.path.expanduser('~/.ansible_einstein.secret')
-        if not os.path.exists(secrets_file):
-            raise UserWarning('Secrets file not found!')
-
     # Limit deployment to specific tags, if specified.
     tags = '--tags "{}"'.format(','.join(args.tags)) if args.tags else ''
 
@@ -39,7 +33,7 @@ def main():
     # Add verbosity if requested
     verbose = '-' + 'v' * args.verbose if args.verbose else ''
 
-    cmd = f"ansible-playbook einstein.yml {verbose} --vault-id {secrets_file} {tags} {dry_run}"
+    cmd = f"ansible-playbook einstein.yml {verbose} {tags} {dry_run}"
     print("Running:", cmd)
     sp.check_call(shlex.split(cmd))
 
