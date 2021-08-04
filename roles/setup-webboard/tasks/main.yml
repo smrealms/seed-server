@@ -7,10 +7,12 @@
     dest: "{{ webboard_home_dir }}"
     version: main
 
-- name: Copy and decrypt configuration files
-  copy:
-    src: files/
-    dest: "{{ webboard_home_dir }}"
+- name: Decrypt, expand, and copy configuration files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ webboard_home_dir }}/{{ item.path }}"
+  with_filetree: files/
+  when: item.state == 'file'
 
 - name: Restrict config.php file permissions for phpbb
   file:
