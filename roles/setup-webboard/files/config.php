@@ -7,7 +7,7 @@ $dbport = '';
 $dbname = '{{ webboard_mysql_database }}';
 $dbuser = '{{ webboard_mysql_user }}';
 $dbpasswd = '{{ webboard_mysql_password }}';
-$table_prefix = '';
+$table_prefix = 'phpbb_';
 $acm_type = 'file';
 $load_extensions = '';
 
