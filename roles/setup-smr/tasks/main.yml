@@ -29,9 +29,8 @@
     src: files/opendkim
     dest: "{{ smr_home_dir }}"
 
-# NOTE: Currently this will fail due to improper handling of glacier objects
 - name: Restore backups from s3
-  command: docker-compose run --rm -e PARAMS=--skip-existing backup-s3 get
+  command: docker-compose run --rm backup-s3 s3 sync s3://smrealms-backup /aws --ignore-glacier-warnings
   args:
     chdir: "{{ smr_home_dir }}"
     creates: "{{ smr_home_dir }}/backup/archive/smr_12_history.sql.bz2"
@@ -94,7 +93,7 @@
     name: Database backups
     hour: '9'
     minute: '0'
-    job: (cd {{ smr_home_dir }} && nice -n 19 ./backup/backup_cron.sh && /usr/local/bin/docker-compose run --rm backup-s3 sync) 2>&1 | logger -t backup
+    job: (cd {{ smr_home_dir }} && nice -n 19 ./backup/backup_cron.sh && /usr/local/bin/docker-compose run --rm backup-s3 s3 sync /aws s3://smrealms-backup --ignore-glacier-warnings) 2>&1 | logger -t backup
 
 - name: Create cron entry for docker cleanup
   cron:
