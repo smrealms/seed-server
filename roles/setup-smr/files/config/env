@@ -1,3 +1,4 @@
+# Environment file for docker-compose
 MYSQL_ROOT_PASSWORD={{ smr_mysql_root_password }}
 MYSQL_PASSWORD={{ smr_mysql_password }}
 MYSQL_HOST={{ smr_mysql_host }}
