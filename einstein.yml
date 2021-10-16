@@ -13,8 +13,6 @@
         - system
         - updates
     - role: Oefenweb.apt
-      apt_dependencies:
-        - python3-apt
       apt_upgrade: false
       apt_install:
         - git
