@@ -5,5 +5,4 @@ MYSQL_USER={{ beta_mysql_user }}
 MYSQL_DATABASE={{ beta_mysql_database }}
 MYSQL_ROOT_PASSWORD={{ beta_mysql_root_password }}
 MYSQL_PASSWORD={{ beta_mysql_password }}
-PHP_DEBUG=0
 SMR_RULE=Host(`beta.smrealms.de`)
