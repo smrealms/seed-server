@@ -14,7 +14,7 @@ smr_recaptcha_private: "{{ vault_smr_recaptcha_private }}"
 smr_facebook_app_id: 135977559774648
 smr_facebook_app_secret: "{{ vault_smr_facebook_app_secret }}"
 
-smr_google_analytics_id: UA-141756852-1
+smr_google_analytics_id: G-NTP0FRQX5H
 
 smr_s3_access_key: "{{ vault_smr_s3_access_key }}"
 smr_s3_secret_key: "{{ vault_smr_s3_secret_key }}"

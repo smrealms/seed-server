@@ -15,4 +15,4 @@ beta_recaptcha_private: "{{ vault_beta_recaptcha_private }}"
 beta_facebook_app_id: 977909275682435
 beta_facebook_app_secret: "{{ vault_beta_facebook_app_secret }}"
 
-beta_google_analytics_id: UA-141756852-2
+beta_google_analytics_id: G-C4NJFCCE0S
