@@ -5,6 +5,8 @@ export HISTIGNORE="ls:l:pwd"
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000
+# Add timestamps to bash history
+export HISTTIMEFORMAT="%F %T | "
 
 # Type a partial command, then use up/down arrows to search the history
 # to find matching commands
