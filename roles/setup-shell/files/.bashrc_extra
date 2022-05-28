@@ -15,3 +15,7 @@ bind '"\e[6~": kill-whole-line'
 
 # Set terminal editor (e.g. for git commit)
 export EDITOR=vim
+
+# Use buildkit for faster builds
+export COMPOSE_DOCKER_CLI_BUILD=1
+export DOCKER_BUILDKIT=1
