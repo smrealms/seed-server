@@ -1,5 +1,9 @@
 <?php
 
+//-------------------
+// Main
+//-------------------
+
 const URL = 'https://beta.smrealms.de';
 
 const ENABLE_DEBUG = false;
@@ -19,8 +23,6 @@ const GOOGLE_CLIENT_SECRET = '{{ google_client_secret }}';
 
 const GOOGLE_ANALYTICS_ID = '{{ beta_google_analytics_id }}';
 
-const ENABLE_NPCS_CHESS = false;
-
 // E-mail addresses to receive bug reports
 const BUG_REPORT_TO_ADDRESSES = [
 	'daniel.hemberger@gmail.com',
@@ -29,3 +31,21 @@ const BUG_REPORT_TO_ADDRESSES = [
 const SMTP_HOSTNAME = 'smtp';
 
 const HISTORY_DATABASES = [];
+
+//-------------------
+// NPC
+//-------------------
+
+const NPC_LOG_TO_DATABASE = true;
+
+const NPC_MAX_ACTIONS = 2500; // About a half hour worth of actions
+const NPC_LOW_TURNS = 75;
+const MINIMUM_RESERVE_CREDITS = 100000;
+const MIN_SLEEP_TIME = 800000;
+const MAX_SLEEP_TIME = 1100000;
+
+//-------------------
+// NPC Chess
+//-------------------
+
+const ENABLE_NPCS_CHESS = false;
