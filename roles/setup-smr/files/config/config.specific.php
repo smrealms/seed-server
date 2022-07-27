@@ -1,5 +1,9 @@
 <?php
 
+//-------------------
+// Main
+//-------------------
+
 const URL = 'https://www.smrealms.de';
 
 const ENABLE_DEBUG = false;
@@ -19,8 +23,6 @@ const GOOGLE_CLIENT_SECRET = '{{ google_client_secret }}';
 
 const GOOGLE_ANALYTICS_ID = '{{ smr_google_analytics_id }}';
 
-const ENABLE_NPCS_CHESS = false;
-
 // E-mail addresses to receive bug reports
 const BUG_REPORT_TO_ADDRESSES = [
 	'bugs@smrealms.de',
@@ -36,3 +38,39 @@ const HISTORY_DATABASES = [
 	'smr_classic_history' => 'old_account_id',
 	'smr_12_history' => 'old_account_id2',
 ];
+
+//-------------------
+// Discord
+//-------------------
+
+const DISCORD_TOKEN = '{{ smr_discord_token }}';
+const DISCORD_COMMAND_PREFIX = '.';
+const DISCORD_LOGGER_LEVEL = 'NOTICE';
+
+//-------------------
+// IRC
+//-------------------
+
+const IRC_BOT_SERVER_ADDRESS = 'irc.theairlock.net';
+const IRC_BOT_SERVER_PORT = 6667;
+const IRC_BOT_NICK = 'Caretaker';
+const IRC_BOT_PASS = '{{ smr_irc_bot_pass }}';
+const IRC_BOT_USER = IRC_BOT_NICK . ' einstein smrealms.de :Official SMR bot';
+const IRC_BOT_VERBOSE_PING = false;
+
+//-------------------
+// NPC
+//-------------------
+
+const NPC_LOG_TO_DATABASE = false;
+const NPC_MAX_ACTIONS = 2500; // About a half hour worth of actions
+const NPC_LOW_TURNS = 100;
+const NPC_MINIMUM_RESERVE_CREDITS = 100000;
+const NPC_MIN_SLEEP_TIME = 800000;
+const NPC_MAX_SLEEP_TIME = 1100000;
+
+//-------------------
+// NPC Chess
+//-------------------
+
+const ENABLE_NPCS_CHESS = false;
