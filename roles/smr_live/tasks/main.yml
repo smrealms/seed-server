@@ -45,11 +45,6 @@
   args:
     chdir: "{{ smr_home_dir }}"
 
-- name: Allow passwordless login to mysql via commandline
-  shell: docker-compose exec -T mysql sh -c 'echo -e "[client]\nhost=localhost\nuser=root\npassword=$MYSQL_ROOT_PASSWORD" > ${HOME}/.my.cnf'
-  args:
-    chdir: "{{ smr_home_dir }}"
-
 - name: Wait for mysql to start
   pause:
     seconds: 10
