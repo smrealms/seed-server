@@ -73,13 +73,13 @@
     creates: "{{ smr_home_dir }}/data/db/smr_classic_history/game.MYD"
 
 - name: Update password to MySql user 'smr' for when changed on redeploy
-  shell: echo "ALTER USER smr IDENTIFIED BY '{{ smr_mysql_password }}';" | docker exec -i {{ smr_mysql_host }} mysql
+  command: docker exec -i {{ smr_mysql_host }} mysql -e "ALTER USER smr IDENTIFIED BY '{{ smr_mysql_password }}';"
 
 - name: Grant permissions to smr_12_history
-  shell: echo "GRANT SELECT ON smr_12_history.* TO smr;" | docker exec -i {{ smr_mysql_host }} mysql
+  command: docker exec -i {{ smr_mysql_host }} mysql -e "GRANT SELECT ON smr_12_history.* TO smr;"
 
 - name: Grant permissions to smr_classic_history
-  shell: echo "GRANT SELECT ON smr_classic_history.* TO smr;" | docker exec -i {{ smr_mysql_host }} mysql
+  command: docker exec -i {{ smr_mysql_host }} mysql -e "GRANT SELECT ON smr_classic_history.* TO smr;"
 
 - name: Start SMR and related services
   command: docker-compose up --detach smr discord irc
