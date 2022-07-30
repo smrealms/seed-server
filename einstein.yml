@@ -31,23 +31,23 @@
       tags:
         - system
         - nagios
-    - role: setup-shell
+    - role: system_config
       tags:
         - system
-        - shell
-    - role: setup-smr
+        - config
+    - role: smr_live
       tags:
         - smr
-        - game
-    - role: setup-wiki
-      tags:
-        - smr
-        - wiki
-    - role: setup-beta
+        - live
+    - role: smr_beta
       tags:
         - smr
         - beta
-    - role: setup-webboard
+    - role: smr_wiki
+      tags:
+        - smr
+        - wiki
+    - role: smr_webboard
       tags:
         - smr
         - webboard

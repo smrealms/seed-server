@@ -1,6 +1,4 @@
 ---
-# tasks file for setup-wiki
-
 - name: Checkout git repository 'smrealms/wiki-server'
   git:
     repo: https://github.com/smrealms/wiki-server.git

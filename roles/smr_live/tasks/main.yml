@@ -1,6 +1,4 @@
 ---
-# tasks file for setup-smr
-
 - name: Checkout git repository 'smrealms/dockerize'
   git:
     repo: https://github.com/smrealms/dockerize.git

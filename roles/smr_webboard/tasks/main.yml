@@ -1,6 +1,4 @@
 ---
-# tasks file for setup-webboard
-
 - name: Checkout git repository 'smrealms/webboard'
   git:
     repo: https://github.com/smrealms/webboard.git

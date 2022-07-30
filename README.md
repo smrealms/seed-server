@@ -21,5 +21,5 @@ pip install ansible
 
 #### Arguments
 
-`role-name` (OPTIONAL) Will only execute the role with the given name. Can be a comma seperated list of roles. 
-                       Allowed values are `system`, `updates`, `access`, `packages`, `docker`, `setup-smr`
+`role-name` (OPTIONAL) Will only execute the role with the given name.
+Can be a space-delimited list of roles.

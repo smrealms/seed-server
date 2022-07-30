@@ -1,6 +1,4 @@
 ---
-# tasks file for setup-shell
-
 - name: Set up authorized keys for SSH access
   authorized_key:
     user: root
