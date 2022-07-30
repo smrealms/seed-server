@@ -40,7 +40,7 @@
     owner: www-data
     group: www-data
 
-- name: Start mysql server to restore database
+- name: Start mysql server to restore database # noqa: no-changed-when
   command: docker-compose up --detach mysql
   args:
     chdir: "{{ smr_home_dir }}"
@@ -67,16 +67,16 @@
     chdir: "{{ smr_home_dir }}/backup"
     creates: "{{ smr_home_dir }}/data/db/smr_classic_history/game.MYD"
 
-- name: Update password to MySql user 'smr' for when changed on redeploy
+- name: Update password to MySql user 'smr' for when changed on redeploy # noqa: no-changed-when
   command: docker exec -i {{ smr_mysql_host }} mysql -e "ALTER USER smr IDENTIFIED BY '{{ smr_mysql_password }}';"
 
-- name: Grant permissions to smr_12_history
+- name: Grant permissions to smr_12_history # noqa: no-changed-when
   command: docker exec -i {{ smr_mysql_host }} mysql -e "GRANT SELECT ON smr_12_history.* TO smr;"
 
-- name: Grant permissions to smr_classic_history
+- name: Grant permissions to smr_classic_history # noqa: no-changed-when
   command: docker exec -i {{ smr_mysql_host }} mysql -e "GRANT SELECT ON smr_classic_history.* TO smr;"
 
-- name: Start SMR and related services
+- name: Start SMR and related services # noqa: no-changed-when
   command: docker-compose up --detach smr discord irc
   args:
     chdir: "{{ smr_home_dir }}"
