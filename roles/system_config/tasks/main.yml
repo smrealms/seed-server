@@ -7,6 +7,12 @@
     - ../../files/ssh-keys/travdan.pub
     - ../../files/ssh-keys/page.pub
 
+- name: Install needed programs
+  apt:
+    pkg:
+      - git
+      - vim
+
 - name: Force a color prompt
   lineinfile:
     path: /root/.bashrc

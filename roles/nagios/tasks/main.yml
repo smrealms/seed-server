@@ -1,4 +1,8 @@
 ---
+- name: Install nagios plugins
+  apt:
+    name: nagios-plugins-basic
+
 - name: Create group 'nagios'
   group:
     name: nagios

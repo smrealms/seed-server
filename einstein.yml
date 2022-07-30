@@ -13,14 +13,6 @@
       tags:
         - system
         - updates
-    - role: Oefenweb.apt
-      apt_upgrade: false
-      apt_install:
-        - git
-        - vim
-      tags:
-        - system
-        - packages
     - role: geerlingguy.docker
       docker_compose_version: 1.28.4
       docker_package_state: latest
