@@ -34,6 +34,7 @@
   copy:
     src: files/
     dest: /root/
+    mode: u=rw,g=,o=
 
 - name: Make diff-highlight available for git
   copy:
@@ -50,3 +51,4 @@
   file:
     path: /root/logs
     state: directory
+    mode: u=rwx,g=rx,o=

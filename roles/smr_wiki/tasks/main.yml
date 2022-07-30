@@ -5,7 +5,7 @@
     dest: "{{ wiki_home_dir }}"
     version: main
 
-- name: Copy and decrypt configuration files
+- name: Copy and decrypt configuration files # noqa: risky-file-permissions
   copy:
     src: files/
     dest: "{{ wiki_home_dir }}"

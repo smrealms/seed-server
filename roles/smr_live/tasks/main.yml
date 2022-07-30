@@ -19,6 +19,7 @@
   template:
     src: "{{ item.src }}"
     dest: "{{ smr_home_dir }}/{{ item.path }}"
+    mode: u=rw,g=r,o=r
   with_filetree: files/
   when: item.state == 'file'
 
@@ -26,6 +27,7 @@
   copy:
     src: files/opendkim
     dest: "{{ smr_home_dir }}"
+    mode: u=rw,g=,o=
 
 - name: Restore backups from s3
   command: docker-compose run --rm backup-s3 s3 sync s3://smrealms-backup /aws --ignore-glacier-warnings

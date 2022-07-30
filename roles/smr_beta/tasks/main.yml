@@ -9,6 +9,7 @@
   template:
     src: "{{ item.src }}"
     dest: "{{ beta_home_dir }}/{{ item.path }}"
+    mode: u=rw,g=r,o=r
   with_filetree: files/
   when: item.state == 'file'
 
@@ -16,6 +17,7 @@
   copy:
     src: files/opendkim
     dest: "{{ beta_home_dir }}"
+    mode: u=rw,g=,o=
 
 - name: Install a cron job to run the npc script
   cron:

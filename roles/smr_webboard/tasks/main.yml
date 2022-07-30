@@ -5,7 +5,7 @@
     dest: "{{ webboard_home_dir }}"
     version: main
 
-- name: Decrypt, expand, and copy configuration files
+- name: Decrypt, expand, and copy configuration files # noqa:risky-file-permissions
   template:
     src: "{{ item.src }}"
     dest: "{{ webboard_home_dir }}/{{ item.path }}"
