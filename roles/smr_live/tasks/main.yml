@@ -86,8 +86,8 @@
     name: Database backups
     hour: "9"
     minute: "0"
-    job: (cd {{ smr_home_dir }} && nice -n 19 ./backup/backup_cron.sh && /usr/local/bin/docker-compose run --rm backup-s3 s3 sync /aws s3://smrealms-backup --ignore-glacier-warnings
-      --no-progress) 2>&1 | logger -t backup
+    job: (cd {{ smr_home_dir }} && nice -n 19 ./backup/backup_cron.sh && /usr/local/bin/docker-compose run --rm backup-s3 s3 sync /aws s3://smrealms-backup
+      --ignore-glacier-warnings --no-progress) 2>&1 | logger -t backup
 
 - name: Create cron entry for docker cleanup
   cron:
