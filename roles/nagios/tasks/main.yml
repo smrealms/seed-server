@@ -2,7 +2,7 @@
 - name: Create group 'nagios'
   group:
     name: nagios
-    system: yes
+    system: true
     state: present
 
 - name: Create user 'nagios'
@@ -11,7 +11,7 @@
     group: nagios
     shell: /bin/bash
     home: /usr/local/nagios
-    system: yes
+    system: true
     state: present
 
 - name: Add authorized key to nagios user

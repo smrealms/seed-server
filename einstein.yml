@@ -1,12 +1,13 @@
+---
 - hosts: einstein
   remote_user: root
   roles:
     - role: jnv.unattended-upgrades
       unattended_origins_patterns:
-        - 'o=${distro_id},a=${distro_codename}'
-        - 'o=${distro_id},a=${distro_codename}-updates'
-        - 'o=${distro_id},a=${distro_codename}-security'
-      unattended_mail: 'mrspock@smrealms.de,daniel.hemberger@gmail.com'
+        - o=${distro_id},a=${distro_codename}
+        - o=${distro_id},a=${distro_codename}-updates
+        - o=${distro_id},a=${distro_codename}-security
+      unattended_mail: mrspock@smrealms.de,daniel.hemberger@gmail.com
       unattended_mail_only_on_error: true
       unattended_remove_unused_dependencies: true
       tags:

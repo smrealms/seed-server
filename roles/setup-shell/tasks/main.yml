@@ -4,7 +4,7 @@
 - name: Set up authorized keys for SSH access
   authorized_key:
     user: root
-    key: '{{ item }}'
+    key: "{{ item }}"
   with_file:
     - ../../files/ssh-keys/travdan.pub
     - ../../files/ssh-keys/page.pub
@@ -12,19 +12,19 @@
 - name: Force a color prompt
   lineinfile:
     path: /root/.bashrc
-    insertafter: "^#force_color_prompt=.*$"
-    line: "force_color_prompt=yes"
+    insertafter: ^#force_color_prompt=.*$
+    line: force_color_prompt=yes
 
 - name: Make root color prompt red (so you know it's root)
   replace:
     path: /root/.bashrc
-    regexp: "32m"
-    replace: "31m"
+    regexp: 32m
+    replace: 31m
 
 - name: Source additional configurations in bashrc
   lineinfile:
     path: /root/.bashrc
-    line: "source /root/.bashrc_extra"
+    line: source /root/.bashrc_extra
 
 - name: Copy rc files
   copy:
@@ -35,7 +35,7 @@
   copy:
     src: /usr/share/doc/git/contrib/diff-highlight/diff-highlight
     dest: /usr/local/bin/diff-highlight
-    remote_src: yes
+    remote_src: true
     mode: a+x
 
 - name: Set system clock to the UTC timezone

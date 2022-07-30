@@ -38,7 +38,7 @@
 - name: Fix file permissions for player images
   file:
     path: "{{ smr_home_dir }}/player-upload"
-    recurse: yes
+    recurse: true
     owner: www-data
     group: www-data
 
@@ -91,9 +91,10 @@
 - name: Create cron entry for database backup
   cron:
     name: Database backups
-    hour: '9'
-    minute: '0'
-    job: (cd {{ smr_home_dir }} && nice -n 19 ./backup/backup_cron.sh && /usr/local/bin/docker-compose run --rm backup-s3 s3 sync /aws s3://smrealms-backup --ignore-glacier-warnings --no-progress) 2>&1 | logger -t backup
+    hour: "9"
+    minute: "0"
+    job: (cd {{ smr_home_dir }} && nice -n 19 ./backup/backup_cron.sh && /usr/local/bin/docker-compose run --rm backup-s3 s3 sync /aws s3://smrealms-backup --ignore-glacier-warnings
+      --no-progress) 2>&1 | logger -t backup
 
 - name: Create cron entry for docker cleanup
   cron:
@@ -106,7 +107,7 @@
     name: Run the live NPC script
     special_time: hourly
     job: >
-        cd {{ smr_home_dir }} &&
-        LOGFILE=$(date "+/root/logs/live_npc/\%Y-\%m-\%d/\%H-\%M-\%S.log") &&
-        mkdir -p $(dirname $LOGFILE) &&
-        /usr/local/bin/docker-compose run --rm npc > $LOGFILE 2>&1
+      cd {{ smr_home_dir }} &&
+      LOGFILE=$(date "+/root/logs/live_npc/\%Y-\%m-\%d/\%H-\%M-\%S.log") &&
+      mkdir -p $(dirname $LOGFILE) &&
+      /usr/local/bin/docker-compose run --rm npc > $LOGFILE 2>&1
