@@ -1,7 +1,7 @@
 ---
 - name: Checkout git repository 'smrealms/smr'
   git:
-    repo: git@github.com:smrealms/smr
+    repo: http://github.com/smrealms/smr
     dest: "{{ beta_home_dir }}"
     version: main
 
