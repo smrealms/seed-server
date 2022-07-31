@@ -20,7 +20,7 @@
     src: "{{ item.src }}"
     dest: "{{ smr_home_dir }}/{{ item.path }}"
     mode: u=rw,g=r,o=r
-  with_filetree: files/
+  with_community.general.filetree: "{{ 'files/' }}"
   when: item.state == 'file'
 
 - name: Decrypt and copy opendkim files

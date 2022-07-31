@@ -9,7 +9,7 @@
   template:
     src: "{{ item.src }}"
     dest: "{{ webboard_home_dir }}/{{ item.path }}"
-  with_filetree: files/
+  with_community.general.filetree: "{{ 'files/' }}"
   when: item.state == 'file'
 
 - name: Restrict config.php file permissions for phpbb
