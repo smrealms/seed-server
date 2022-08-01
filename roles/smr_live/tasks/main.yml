@@ -38,7 +38,7 @@
     mode: u=rw,g=,o=
 
 - name: Restore backups from s3
-  command: docker-compose run --rm backup-s3 s3 sync s3://smrealms-backup /aws --ignore-glacier-warnings
+  command: docker-compose run --rm backup-s3 s3 sync s3://smrealms-backup /aws --ignore-glacier-warnings --no-progress
   args:
     chdir: "{{ smr_home_dir }}"
     creates: "{{ smr_home_dir }}/backup/archive/smr_12_history.sql.bz2"
