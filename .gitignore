@@ -11,3 +11,5 @@
 # galaxy roles
 /roles/geerlingguy.docker
 /roles/jnv.unattended-upgrades
+
+/.vagrant
