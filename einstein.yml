@@ -1,25 +1,18 @@
+---
 - hosts: einstein
   remote_user: root
   roles:
     - role: jnv.unattended-upgrades
       unattended_origins_patterns:
-        - 'o=${distro_id},a=${distro_codename}'
-        - 'o=${distro_id},a=${distro_codename}-updates'
-        - 'o=${distro_id},a=${distro_codename}-security'
-      unattended_mail: 'mrspock@smrealms.de,daniel.hemberger@gmail.com'
+        - o=${distro_id},a=${distro_codename}
+        - o=${distro_id},a=${distro_codename}-updates
+        - o=${distro_id},a=${distro_codename}-security
+      unattended_mail: mrspock@smrealms.de,daniel.hemberger@gmail.com
       unattended_mail_only_on_error: true
       unattended_remove_unused_dependencies: true
       tags:
         - system
         - updates
-    - role: Oefenweb.apt
-      apt_upgrade: false
-      apt_install:
-        - git
-        - vim
-      tags:
-        - system
-        - packages
     - role: geerlingguy.docker
       docker_compose_version: 1.28.4
       docker_package_state: latest
@@ -30,23 +23,23 @@
       tags:
         - system
         - nagios
-    - role: setup-shell
+    - role: system_config
       tags:
         - system
-        - shell
-    - role: setup-smr
+        - config
+    - role: smr_live
       tags:
         - smr
-        - game
-    - role: setup-wiki
-      tags:
-        - smr
-        - wiki
-    - role: setup-beta
+        - live
+    - role: smr_beta
       tags:
         - smr
         - beta
-    - role: setup-webboard
+    - role: smr_wiki
+      tags:
+        - smr
+        - wiki
+    - role: smr_webboard
       tags:
         - smr
         - webboard

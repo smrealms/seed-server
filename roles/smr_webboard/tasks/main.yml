@@ -1,0 +1,24 @@
+---
+- name: Checkout git repository 'smrealms/webboard'
+  git:
+    repo: https://github.com/smrealms/webboard.git
+    dest: "{{ webboard_home_dir }}"
+    version: main
+
+- name: Decrypt, expand, and copy configuration files # noqa:risky-file-permissions
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ webboard_home_dir }}/{{ item.path }}"
+  with_community.general.filetree: "{{ 'files/' }}"
+  when: item.state == 'file'
+
+- name: Restrict config.php file permissions for phpbb
+  file:
+    path: "{{ webboard_home_dir }}/config.php"
+    group: www-data
+    mode: 0640
+
+- name: Start webboard service and dependencies # noqa: no-changed-when
+  command: docker-compose up --detach webboard
+  args:
+    chdir: "{{ webboard_home_dir }}"

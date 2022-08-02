@@ -1,0 +1,21 @@
+---
+- name: Checkout git repository 'smrealms/wiki-server'
+  git:
+    repo: https://github.com/smrealms/wiki-server.git
+    dest: "{{ wiki_home_dir }}"
+    version: main
+
+- name: Copy and decrypt configuration files # noqa: risky-file-permissions
+  copy:
+    src: files/
+    dest: "{{ wiki_home_dir }}"
+
+- name: Restrict .pem file permissions for wiki.js
+  file:
+    path: "{{ wiki_home_dir }}/wiki-data.pem"
+    mode: 0600
+
+- name: Start wiki service and dependencies # noqa: no-changed-when
+  command: docker-compose up --detach wiki
+  args:
+    chdir: "{{ wiki_home_dir }}"

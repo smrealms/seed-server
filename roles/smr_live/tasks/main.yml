@@ -1,0 +1,108 @@
+---
+- name: Checkout git repository 'smrealms/dockerize'
+  git:
+    repo: https://github.com/smrealms/dockerize.git
+    dest: "{{ smr_home_dir }}"
+    version: main
+
+- name: Create acme.json for traefik
+  file:
+    path: "{{ smr_home_dir }}/traefik/acme.json"
+    state: touch
+    mode: 0600
+
+- name: Generate MySql password
+  set_fact:
+    smr_mysql_password: "{{ lookup('password', '/dev/null chars=ascii_letters,digits length=32') }}"
+
+- name: Expand and copy configuration files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ smr_home_dir }}/{{ item.path }}"
+    mode: u=rw,g=r,o=r
+  with_community.general.filetree: "{{ 'files/' }}"
+  when: item.state == 'file'
+
+- name: Decrypt and copy opendkim files
+  copy:
+    src: files/opendkim
+    dest: "{{ smr_home_dir }}"
+    mode: u=rw,g=,o=
+
+- name: Restore backups from s3
+  command: docker-compose run --rm backup-s3 s3 sync s3://smrealms-backup /aws --ignore-glacier-warnings
+  args:
+    chdir: "{{ smr_home_dir }}"
+    creates: "{{ smr_home_dir }}/backup/archive/smr_12_history.sql.bz2"
+
+- name: Fix file permissions for player images
+  file:
+    path: "{{ smr_home_dir }}/player-upload"
+    recurse: true
+    owner: www-data
+    group: www-data
+
+- name: Start mysql server to restore database # noqa: no-changed-when
+  command: docker-compose up --detach mysql
+  args:
+    chdir: "{{ smr_home_dir }}"
+
+- name: Wait for mysql to start
+  pause:
+    seconds: 10
+
+- name: Restore database 'smr_live'
+  command: ./restore_smr_live.sh
+  args:
+    chdir: "{{ smr_home_dir }}/backup"
+    creates: "{{ smr_home_dir }}/data/db/smr_live/game.MYD"
+
+- name: Restore database 'smr_12_history'
+  command: ./restore_smr_archive.sh smr_12_history.sql.bz2
+  args:
+    chdir: "{{ smr_home_dir }}/backup"
+    creates: "{{ smr_home_dir }}/data/db/smr_12_history/game.MYD"
+
+- name: Restore database 'smr_classic_history'
+  command: ./restore_smr_archive.sh smr_classic_history.sql.bz2
+  args:
+    chdir: "{{ smr_home_dir }}/backup"
+    creates: "{{ smr_home_dir }}/data/db/smr_classic_history/game.MYD"
+
+- name: Update password to MySql user 'smr' for when changed on redeploy # noqa: no-changed-when
+  command: docker exec -i {{ smr_mysql_host }} mysql -e "ALTER USER smr IDENTIFIED BY '{{ smr_mysql_password }}';"
+
+- name: Grant permissions to smr_12_history # noqa: no-changed-when
+  command: docker exec -i {{ smr_mysql_host }} mysql -e "GRANT SELECT ON smr_12_history.* TO smr;"
+
+- name: Grant permissions to smr_classic_history # noqa: no-changed-when
+  command: docker exec -i {{ smr_mysql_host }} mysql -e "GRANT SELECT ON smr_classic_history.* TO smr;"
+
+- name: Start SMR and related services # noqa: no-changed-when
+  command: docker-compose up --detach smr discord irc
+  args:
+    chdir: "{{ smr_home_dir }}"
+
+- name: Create cron entry for database backup
+  cron:
+    name: Database backups
+    hour: "9"
+    minute: "0"
+    job: (cd {{ smr_home_dir }} && nice -n 19 ./backup/backup_cron.sh && /usr/local/bin/docker-compose run --rm backup-s3 s3 sync /aws s3://smrealms-backup
+      --ignore-glacier-warnings --no-progress) 2>&1 | logger -t backup
+
+- name: Create cron entry for docker cleanup
+  cron:
+    name: docker cleanup
+    special_time: daily
+    job: docker image prune -f > /dev/null
+
+- name: Install a cron job to run the npc script
+  cron:
+    name: Run the live NPC script
+    special_time: hourly
+    job: >
+      cd {{ smr_home_dir }} &&
+      LOGFILE=$(date "+/root/logs/live_npc/\%Y-\%m-\%d/\%H-\%M-\%S.log") &&
+      mkdir -p $(dirname $LOGFILE) &&
+      /usr/local/bin/docker-compose run --rm npc > $LOGFILE 2>&1
