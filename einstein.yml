@@ -1,5 +1,5 @@
 ---
-- hosts: einstein
+- hosts: all
   remote_user: root
   roles:
     - role: jnv.unattended-upgrades
