@@ -10,7 +10,7 @@ It contains the password to decrypt secrets in this repository.
 
 Make sure you have the latest `ansible` installed on your system, e.g.
 ```
-pip install ansible
+pip install -r requirements.txt
 ```
 
 ## Execution
