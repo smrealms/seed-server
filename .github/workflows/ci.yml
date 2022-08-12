@@ -16,4 +16,4 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run ansible-lint
-        uses: ansible-community/ansible-lint-action@3641cc08b71a245719a8482804e01b70c15666da
+        uses: ansible-community/ansible-lint-action@v6.3.0
