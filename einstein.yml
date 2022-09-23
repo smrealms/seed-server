@@ -2,7 +2,7 @@
 - hosts: all
   remote_user: root
   roles:
-    - role: jnv.unattended-upgrades
+    - role: hifis.unattended_upgrades
       unattended_origins_patterns:
         - o=${distro_id},a=${distro_codename}
         - o=${distro_id},a=${distro_codename}-updates
