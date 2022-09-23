@@ -10,6 +10,6 @@
 
 # galaxy roles
 /roles/geerlingguy.docker
-/roles/jnv.unattended-upgrades
+/roles/hifis.unattended_upgrades
 
 /.vagrant
