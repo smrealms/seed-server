@@ -14,8 +14,9 @@
         - system
         - updates
     - role: geerlingguy.docker
-      docker_compose_version: 1.28.4
       docker_package_state: latest
+      docker_install_compose_plugin: true
+      docker_install_compose: false
       tags:
         - system
         - docker

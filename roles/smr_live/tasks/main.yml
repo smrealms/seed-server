@@ -38,7 +38,7 @@
     mode: u=rw,g=,o=
 
 - name: Restore backups from s3
-  command: docker-compose run --rm backup-s3 s3 sync s3://smrealms-backup /aws --ignore-glacier-warnings --no-progress
+  command: docker compose run --rm backup-s3 s3 sync s3://smrealms-backup /aws --ignore-glacier-warnings --no-progress
   args:
     chdir: "{{ smr_home_dir }}"
     creates: "{{ smr_home_dir }}/backup/archive/smr_12_history.sql.bz2"
@@ -51,7 +51,7 @@
     group: www-data
 
 - name: Start mysql server to restore database # noqa: no-changed-when
-  command: docker-compose up --detach mysql
+  command: docker compose up --detach mysql
   args:
     chdir: "{{ smr_home_dir }}"
 
@@ -87,7 +87,7 @@
   command: docker exec -i {{ smr_mysql_host }} mysql -e "GRANT SELECT ON smr_classic_history.* TO smr;"
 
 - name: Start SMR and related services # noqa: no-changed-when
-  command: docker-compose up --detach smr discord irc
+  command: docker compose up --detach smr discord irc
   args:
     chdir: "{{ smr_home_dir }}"
 
@@ -96,7 +96,7 @@
     name: Database backups
     hour: "9"
     minute: "0"
-    job: (cd {{ smr_home_dir }} && nice -n 19 ./backup/backup_cron.sh && /usr/local/bin/docker-compose run --rm backup-s3 s3 sync /aws s3://smrealms-backup
+    job: (cd {{ smr_home_dir }} && nice -n 19 ./backup/backup_cron.sh && docker compose run --rm backup-s3 s3 sync /aws s3://smrealms-backup
       --ignore-glacier-warnings --no-progress) 2>&1 | logger -t backup
 
 - name: Create cron entry for docker cleanup
@@ -113,4 +113,4 @@
       cd {{ smr_home_dir }} &&
       LOGFILE=$(date "+/root/logs/live_npc/\%Y-\%m-\%d/\%H-\%M-\%S.log") &&
       mkdir -p $(dirname $LOGFILE) &&
-      /usr/local/bin/docker-compose run --rm npc > $LOGFILE 2>&1
+      docker compose run --rm npc > $LOGFILE 2>&1

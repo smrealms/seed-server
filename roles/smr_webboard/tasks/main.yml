@@ -19,6 +19,6 @@
     mode: 0640
 
 - name: Start webboard service and dependencies # noqa: no-changed-when
-  command: docker-compose up --detach webboard
+  command: docker compose up --detach webboard
   args:
     chdir: "{{ webboard_home_dir }}"

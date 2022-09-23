@@ -2,7 +2,7 @@
 # Roles to install from Ansible Galaxy
 
 - src: geerlingguy.docker
-  version: 4.1.1
+  version: 5.2.1
 
 - src: hifis.unattended_upgrades
   version: v1.12.2
