@@ -1,0 +1,17 @@
+---
+- name: Checkout git repository 'smrealms/discord-irc'
+  git:
+    repo: https://github.com/smrealms/discord-irc.git
+    dest: "{{ discord_irc_home_dir }}"
+    version: main
+
+- name: Expand and copy discord-irc configuration file
+  template:
+    src: files/config.json
+    dest: "{{ discord_irc_home_dir }}/config.json"
+    mode: u=r,g=,o=
+
+- name: Start discord-irc service # noqa: no-changed-when
+  command: docker compose up --detach discord-irc
+  args:
+    chdir: "{{ discord_irc_home_dir }}"

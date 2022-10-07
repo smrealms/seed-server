@@ -44,3 +44,7 @@
       tags:
         - smr
         - webboard
+    - role: smr_chat_bridge
+      tags:
+        - smr
+        - chat_bridge

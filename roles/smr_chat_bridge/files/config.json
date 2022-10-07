@@ -1,0 +1,16 @@
+[
+  {
+    "nickname": "discordbot",
+    "server": "irc.theairlock.net",
+    "discordToken": "{{ discord_irc_discord_token }}",
+    "channelMapping": {
+      "376433706916642828": "#smr"
+    },
+    "autoSendCommands": [
+      ["PRIVMSG", "NickServ", "IDENTIFY {{ discord_irc_irc_password }}"]
+    ],
+    "muteDiscordbot": true,
+    "commandCharacters": ["!"],
+    "ircStatusNotices": false
+  }
+]

@@ -1,0 +1,6 @@
+---
+# Where discord-irc repo will be cloned
+discord_irc_home_dir: /root/discord-irc
+
+discord_irc_discord_token: "{{ vault_discord_irc_discord_token }}"
+discord_irc_irc_password: "{{ vault_discord_irc_irc_password }}"
