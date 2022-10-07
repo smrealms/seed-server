@@ -99,12 +99,6 @@
     job: (cd {{ smr_home_dir }} && nice -n 19 ./backup/backup_cron.sh && docker compose run --rm backup-s3 s3 sync /aws s3://smrealms-backup
       --ignore-glacier-warnings --no-progress) 2>&1 | logger -t backup
 
-- name: Create cron entry for docker cleanup
-  cron:
-    name: docker cleanup
-    special_time: daily
-    job: docker image prune -f > /dev/null
-
 - name: Install a cron job to run the npc script
   cron:
     name: Run the live NPC script

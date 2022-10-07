@@ -52,3 +52,9 @@
     path: /root/logs
     state: directory
     mode: u=rwx,g=rx,o=
+
+- name: Create cron entry for docker cleanup
+  cron:
+    name: docker cleanup
+    special_time: daily
+    job: docker image prune -f > /dev/null
