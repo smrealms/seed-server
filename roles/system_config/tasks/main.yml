@@ -1,6 +1,6 @@
 ---
 - name: Set up authorized keys for SSH access
-  authorized_key:
+  ansible.posix.authorized_key:
     user: root
     key: "{{ item }}"
   with_file:
@@ -44,7 +44,7 @@
     mode: a+x
 
 - name: Set system clock to the UTC timezone
-  timezone:
+  community.general.timezone:
     name: UTC
 
 - name: Create a directory to output logs

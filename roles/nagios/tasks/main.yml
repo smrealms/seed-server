@@ -19,7 +19,7 @@
     state: present
 
 - name: Add authorized key to nagios user
-  authorized_key:
+  ansible.posix.authorized_key:
     user: nagios
     state: present
     key: "{{ lookup('file', 'files/nagios.pub') }}"
