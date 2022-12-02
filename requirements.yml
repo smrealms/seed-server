@@ -5,4 +5,4 @@
   version: 5.2.1
 
 - src: hifis.unattended_upgrades
-  version: v1.12.2
+  version: v2.0.1
