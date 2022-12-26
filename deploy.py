@@ -20,7 +20,7 @@ def main():
 
     # Install the roles that we're using from the Ansible Galaxy.
     force = '--force' if args.force else ''
-    cmd = "ansible-galaxy install -p roles -r requirements.yml {}".format(force)
+    cmd = "ansible-galaxy role install -p roles -r requirements.yml {}".format(force)
     print("Running: {}".format(cmd))
     sp.check_call(shlex.split(cmd))
 
