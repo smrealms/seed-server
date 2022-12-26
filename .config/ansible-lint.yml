@@ -1,4 +1,5 @@
 ---
+strict: true
 skip_list:
   # https://github.com/ansible/ansible-lint/issues/2050
   - fqcn-builtins
