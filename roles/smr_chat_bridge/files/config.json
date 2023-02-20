@@ -4,7 +4,8 @@
     "server": "irc.theairlock.net",
     "discordToken": "{{ discord_irc_discord_token }}",
     "channelMapping": {
-      "376433706916642828": "#smr"
+      "376433706916642828": "#smr",
+      "1036864528761233440": "#fm"
     },
     "autoSendCommands": [
       ["PRIVMSG", "NickServ", "IDENTIFY {{ discord_irc_irc_password }}"]
