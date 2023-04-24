@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- name: Play for provisioning the SMR server
+  hosts: all
   remote_user: root
   roles:
     - role: hifis.unattended_upgrades

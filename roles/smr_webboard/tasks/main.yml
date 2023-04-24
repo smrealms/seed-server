@@ -16,7 +16,7 @@
   file:
     path: "{{ webboard_home_dir }}/config.php"
     group: www-data
-    mode: 0640
+    mode: "0640"
 
 - name: Start webboard service and dependencies # noqa: no-changed-when
   command: docker compose up --detach webboard
