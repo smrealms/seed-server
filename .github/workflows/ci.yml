@@ -17,7 +17,9 @@ jobs:
 
       - name: Create ansible secrets file
         run: |
-            echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > ${{ github.workspace }}/.ansible_secret
+            echo $ANSIBLE_VAULT_PASSWORD > ${{ github.workspace }}/.ansible_secret
+        env:
+            ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
 
       - name: Run ansible-lint
         uses: ansible-community/ansible-lint-action@v6.15.0
