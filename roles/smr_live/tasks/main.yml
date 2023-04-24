@@ -9,7 +9,7 @@
   file:
     path: "{{ smr_home_dir }}/traefik/acme.json"
     state: touch
-    mode: 0600
+    mode: "0600"
 
 - name: Generate MySql password
   set_fact:
