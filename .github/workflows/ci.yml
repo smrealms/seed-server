@@ -15,5 +15,9 @@ jobs:
       - name: Checkout the source code
         uses: actions/checkout@v3
 
+      - name: Create ansible secrets file
+        run: |
+            echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > ${{ github.workspace }}/.ansible_secret
+
       - name: Run ansible-lint
         uses: ansible-community/ansible-lint-action@v6.15.0
