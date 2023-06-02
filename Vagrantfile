@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
 
-    # Use Ubuntu 18.04 to match live server
-    config.vm.box = "ubuntu/bionic64"
+    # Use Ubuntu 22.04 to match live server
+    config.vm.box = "ubuntu/jammy64"
 
     # Give the VM an externally visible IP address
     config.vm.network "private_network", type: "dhcp"
