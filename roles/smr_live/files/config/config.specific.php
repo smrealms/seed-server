@@ -6,6 +6,7 @@
 
 const URL = 'https://www.smrealms.de';
 
+const ENABLE_LIBXML_ERRORS = false;
 const ENABLE_DEBUG = false;
 const ENABLE_BETA = false;
 

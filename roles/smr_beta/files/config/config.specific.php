@@ -6,6 +6,7 @@
 
 const URL = 'https://beta.smrealms.de';
 
+const ENABLE_LIBXML_ERRORS = true;
 const ENABLE_DEBUG = false;
 const ENABLE_BETA = true;
 
