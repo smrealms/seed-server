@@ -30,6 +30,11 @@ const BUG_REPORT_TO_ADDRESSES = [
 	'daniel.hemberger@gmail.com',
 ];
 
+// E-mail addresses to CC on contact form submissions
++const CONTACT_FORM_CC_ADDRESSES = [
+	'daniel.hemberger@gmail.com',
+];
+
 # Refer to the smtp container name in the dockerize (live) repo. This name is
 # unique, unlike the service name ("smtp"), which is the same in both beta and
 # live. This ensures we only ever connect to the live smtp service.

@@ -29,6 +29,11 @@ const BUG_REPORT_TO_ADDRESSES = [
 	'daniel.hemberger@gmail.com',
 ];
 
+// E-mail addresses to CC on contact form submissions
++const CONTACT_FORM_CC_ADDRESSES = [
+	'daniel.hemberger@gmail.com',
+];
+
 const SMTP_HOSTNAME = 'smtp';
 
 const HISTORY_DATABASES = [];
