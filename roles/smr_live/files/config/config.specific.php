@@ -35,11 +35,6 @@ const CONTACT_FORM_CC_ADDRESSES = [
 	'daniel.hemberger@gmail.com',
 ];
 
-# Refer to the smtp container name in the dockerize (live) repo. This name is
-# unique, unlike the service name ("smtp"), which is the same in both beta and
-# live. This ensures we only ever connect to the live smtp service.
-const SMTP_HOSTNAME = 'smr-smtp';
-
 const HISTORY_DATABASES = [
 	'smr_classic_history' => 'old_account_id',
 	'smr_12_history' => 'old_account_id2',

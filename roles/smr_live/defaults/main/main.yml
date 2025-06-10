@@ -1,8 +1,7 @@
 ---
 # where smr will be installed
-smr_home_dir: /root/dockerize
+smr_home_dir: /root/live
 
-smr_mysql_host: smr-mysql
 smr_mysql_user: smr
 smr_mysql_database: smr_live
 smr_mysql_root_password: "{{ vault_smr_mysql_root_password }}"
