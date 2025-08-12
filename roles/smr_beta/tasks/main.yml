@@ -9,7 +9,10 @@
   template:
     src: "{{ item.src }}"
     dest: "{{ beta_home_dir }}/{{ item.path }}"
-    mode: u=rw,g=r,o=r
+    mode: >-
+      {{ 'u=rw,g=r,o=r'
+         if item.path == 'config/config.specific.php'
+         else 'u=rw,g=,o=' }}
   with_community.general.filetree: "{{ 'files/' }}"
   when: item.state == 'file'
 

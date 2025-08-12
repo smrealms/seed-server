@@ -34,8 +34,6 @@ const CONTACT_FORM_CC_ADDRESSES = [
 	'daniel.hemberger@gmail.com',
 ];
 
-const SMTP_HOSTNAME = 'smtp';
-
 const HISTORY_DATABASES = [];
 
 //-------------------
