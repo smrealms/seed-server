@@ -3,3 +3,5 @@ strict: true
 skip_list:
   # https://github.com/ansible/ansible-lint/issues/2050
   - fqcn-builtins
+  # Prefixing vars with role names is a bit too verbose for now
+  - var-naming[no-role-prefix]
