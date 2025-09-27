@@ -7,7 +7,7 @@ collections:
 roles:
 
   - src: geerlingguy.docker
-    version: 6.1.0
+    version: 7.5.5
 
   - src: hifis.unattended_upgrades
     version: v3.0.0
