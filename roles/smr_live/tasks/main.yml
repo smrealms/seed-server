@@ -1,29 +1,29 @@
 ---
 - name: Checkout git repository 'smrealms/smr'
-  git:
+  ansible.builtin.git:
     repo: https://github.com/smrealms/smr.git
     dest: "{{ smr_home_dir }}"
     version: live
 
 # This is needed so that we don't need verbose -f arguments to docker-compose
 - name: Set up the docker-compose live overrides
-  file:
+  ansible.builtin.file:
     src: "{{ smr_home_dir }}/live/docker-compose.override.yml"
     dest: "{{ smr_home_dir }}/docker-compose.override.yml"
     state: link
 
 - name: Create acme.json for traefik
-  file:
+  ansible.builtin.file:
     path: "{{ smr_home_dir }}/traefik/acme.json"
     state: touch
     mode: "0600"
 
 - name: Generate MySql password
-  set_fact:
+  ansible.builtin.set_fact:
     smr_mysql_password: "{{ lookup('password', '/dev/null chars=ascii_letters,digits length=32') }}"
 
 - name: Create configuration directories
-  file:
+  ansible.builtin.file:
     path: "{{ smr_home_dir }}/{{ item.path }}"
     state: directory
     mode: u=rwx,g=rx,o=rx
@@ -31,7 +31,7 @@
   when: item.state == 'directory'
 
 - name: Expand and copy configuration files
-  template:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ smr_home_dir }}/{{ item.path }}"
     mode: >-
@@ -42,73 +42,73 @@
   when: item.state == 'file'
 
 - name: Decrypt and copy opendkim files
-  copy:
+  ansible.builtin.copy:
     src: files/opendkim
     dest: "{{ smr_home_dir }}"
     mode: u=rw,g=,o=
 
 - name: Restore backups from s3
-  command: docker compose run --rm backup-s3 s3 sync s3://smrealms-backup /aws --ignore-glacier-warnings --no-progress
+  ansible.builtin.command: docker compose run --rm backup-s3 s3 sync s3://smrealms-backup /aws --ignore-glacier-warnings --no-progress
   args:
     chdir: "{{ smr_home_dir }}"
     creates: "{{ smr_home_dir }}/backup/archive/smr_12_history.sql.bz2"
 
 - name: Fix file permissions for player images
-  file:
+  ansible.builtin.file:
     path: "{{ smr_home_dir }}/vol_upload"
     recurse: true
     owner: www-data
     group: www-data
 
 - name: Start mysql server to restore database # noqa: no-changed-when
-  command: docker compose up --detach mysql
+  ansible.builtin.command: docker compose up --detach mysql
   args:
     chdir: "{{ smr_home_dir }}"
 
 - name: Wait for mysql to start
-  pause:
+  ansible.builtin.pause:
     seconds: 10
 
 - name: Restore database 'smr_live'
-  command: ./restore_smr_live.sh
+  ansible.builtin.command: ./restore_smr_live.sh
   args:
     chdir: "{{ smr_home_dir }}/backup"
     creates: "{{ smr_home_dir }}/vol_db/smr_live/game.MYD"
 
 - name: Restore database 'smr_12_history'
-  command: ./restore_smr_archive.sh smr_12_history.sql.bz2
+  ansible.builtin.command: ./restore_smr_archive.sh smr_12_history.sql.bz2
   args:
     chdir: "{{ smr_home_dir }}/backup"
     creates: "{{ smr_home_dir }}/vol_db/smr_12_history/game.MYD"
 
 - name: Restore database 'smr_classic_history'
-  command: ./restore_smr_archive.sh smr_classic_history.sql.bz2
+  ansible.builtin.command: ./restore_smr_archive.sh smr_classic_history.sql.bz2
   args:
     chdir: "{{ smr_home_dir }}/backup"
     creates: "{{ smr_home_dir }}/vol_db/smr_classic_history/game.MYD"
 
 - name: Update password to MySql user 'smr' for when changed on redeploy # noqa: no-changed-when
-  command: docker compose exec -T mysql mysql -e "ALTER USER {{ smr_mysql_user }} IDENTIFIED BY '{{ smr_mysql_password }}';"
+  ansible.builtin.command: docker compose exec -T mysql mysql -e "ALTER USER {{ smr_mysql_user }} IDENTIFIED BY '{{ smr_mysql_password }}';"
   args:
     chdir: "{{ smr_home_dir }}"
 
 - name: Grant permissions to smr_12_history # noqa: no-changed-when
-  command: docker compose exec mysql mysql -e "GRANT SELECT ON smr_12_history.* TO {{ smr_mysql_user }};"
+  ansible.builtin.command: docker compose exec mysql mysql -e "GRANT SELECT ON smr_12_history.* TO {{ smr_mysql_user }};"
   args:
     chdir: "{{ smr_home_dir }}"
 
 - name: Grant permissions to smr_classic_history # noqa: no-changed-when
-  command: docker compose exec -T mysql mysql -e "GRANT SELECT ON smr_classic_history.* TO {{ smr_mysql_user }};"
+  ansible.builtin.command: docker compose exec -T mysql mysql -e "GRANT SELECT ON smr_classic_history.* TO {{ smr_mysql_user }};"
   args:
     chdir: "{{ smr_home_dir }}"
 
 - name: Start SMR and related services # noqa: no-changed-when
-  command: docker compose up --detach smr discord irc traefik
+  ansible.builtin.command: docker compose up --detach smr discord irc traefik
   args:
     chdir: "{{ smr_home_dir }}"
 
 - name: Create cron entry for database backup
-  cron:
+  ansible.builtin.cron:
     name: Database backups
     hour: "9"
     minute: "0"
@@ -116,7 +116,7 @@
       --ignore-glacier-warnings --no-progress) 2>&1 | logger -t backup
 
 - name: Install a cron job to run the npc script
-  cron:
+  ansible.builtin.cron:
     name: Run the live NPC script
     special_time: hourly
     job: >

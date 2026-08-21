@@ -1,12 +1,12 @@
 ---
 - name: Checkout git repository 'smrealms/smr'
-  git:
+  ansible.builtin.git:
     repo: http://github.com/smrealms/smr
     dest: "{{ beta_home_dir }}"
     version: main
 
 - name: Expand and copy configuration files
-  template:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ beta_home_dir }}/{{ item.path }}"
     mode: >-
@@ -17,13 +17,13 @@
   when: item.state == 'file'
 
 - name: Decrypt and copy opendkim files
-  copy:
+  ansible.builtin.copy:
     src: files/opendkim
     dest: "{{ beta_home_dir }}"
     mode: u=rw,g=,o=
 
 - name: Install a cron job to run the npc script
-  cron:
+  ansible.builtin.cron:
     name: Run the beta NPC script
     special_time: hourly
     job: >
