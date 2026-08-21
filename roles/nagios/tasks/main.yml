@@ -1,16 +1,16 @@
 ---
 - name: Install nagios plugins
-  apt:
+  ansible.builtin.apt:
     name: nagios-plugins-basic
 
 - name: Create group 'nagios'
-  group:
+  ansible.builtin.group:
     name: nagios
     system: true
     state: present
 
 - name: Create user 'nagios'
-  user:
+  ansible.builtin.user:
     name: nagios
     group: nagios
     shell: /bin/bash
@@ -25,13 +25,13 @@
     key: "{{ lookup('file', 'files/nagios.pub') }}"
 
 - name: Create symlink to nagios plugins
-  file:
+  ansible.builtin.file:
     path: /usr/local/nagios/libexec
     state: link
     src: /usr/lib/nagios/plugins
 
 - name: Download check_mem nagios plugin
-  get_url:
+  ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/justintime/nagios-plugins/master/check_mem/check_mem.pl
     dest: /usr/lib/nagios/plugins/check_mem.pl
     mode: "0755"

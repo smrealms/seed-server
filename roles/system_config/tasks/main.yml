@@ -8,36 +8,36 @@
     - ../../files/ssh-keys/page.pub
 
 - name: Install needed programs
-  apt:
+  ansible.builtin.apt:
     pkg:
       - git
       - vim
 
 - name: Force a color prompt
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /root/.bashrc
     insertafter: ^#force_color_prompt=.*$
     line: force_color_prompt=yes
 
 - name: Make root color prompt red (so you know it's root)
-  replace:
+  ansible.builtin.replace:
     path: /root/.bashrc
     regexp: 32m
     replace: 31m
 
 - name: Source additional configurations in bashrc
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /root/.bashrc
     line: source /root/.bashrc_extra
 
 - name: Copy rc files
-  copy:
+  ansible.builtin.copy:
     src: files/
     dest: /root/
     mode: u=rw,g=,o=
 
 - name: Make diff-highlight available for git
-  copy:
+  ansible.builtin.copy:
     src: /usr/share/doc/git/contrib/diff-highlight/diff-highlight
     dest: /usr/local/bin/diff-highlight
     remote_src: true
@@ -48,13 +48,13 @@
     name: UTC
 
 - name: Create a directory to output logs
-  file:
+  ansible.builtin.file:
     path: /root/logs
     state: directory
     mode: u=rwx,g=rx,o=
 
 - name: Create cron entry for docker cleanup
-  cron:
+  ansible.builtin.cron:
     name: docker cleanup
     special_time: daily
     job: docker image prune -f > /dev/null
