@@ -8,10 +8,8 @@ Create the file `./.ansible_secret` on your machine.
 Ask @MichaelKunze for the content.
 It contains the password to decrypt secrets in this repository.
 
-Make sure you have the latest `ansible` installed on your system, e.g.
-```
-pip install -r requirements.txt
-```
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/). It will
+install Python and the locked project dependencies when needed.
 
 ## Execution
 
@@ -28,7 +26,7 @@ Can be a space-delimited list of roles.
 
 Basic syntax checking can be performed by simply running:
 ```
-ansible-lint
+uv run ansible-lint
 ```
 
 Ansible can also be run in "check" mode, to do a mock deployment without
@@ -38,9 +36,11 @@ not function correctly in this mode. It can be performed using:
 ./deploy.py --dry-run
 ```
 
-A full test of the deployment to a local VM can be performed using:
+A full test of the deployment to a local VM requires Vagrant and a compatible
+VM provider installed separately. Run Vagrant through uv so it can find the
+project's Ansible installation:
 ```
-vagrant up --provision
+uv run vagrant up --provision
 ```
 
 > **Warning**

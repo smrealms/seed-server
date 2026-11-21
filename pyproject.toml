@@ -1,0 +1,14 @@
+[project]
+name = "seed-server"
+version = "0.1.0"
+description = "Ansible configuration for the SMR server"
+requires-python = ">=3.12"
+dependencies = [
+    "ansible",
+    "ansible-core>=2.21.4",
+]
+
+[dependency-groups]
+dev = [
+    "ansible-lint==26.9.0",
+]
