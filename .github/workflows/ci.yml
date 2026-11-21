@@ -19,5 +19,8 @@ jobs:
         run: |
             echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > ${{ github.workspace }}/.ansible_secret
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
       - name: Run ansible-lint
-        uses: ansible/ansible-lint@v26.10.0
+        run: uv run --locked ansible-lint
