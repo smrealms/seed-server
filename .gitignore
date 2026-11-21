@@ -9,8 +9,7 @@
 # playbook logging
 /ansible.log
 
-# galaxy roles
-/roles/geerlingguy.docker
-/roles/hifis.unattended_upgrades
+# roles downloaded from ansible galaxy
+/.galaxy-roles/
 
 /.vagrant
