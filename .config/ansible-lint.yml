@@ -1,5 +1,8 @@
 ---
 strict: true
+exclude_paths:
+  # Ignore roles downloaded from ansible galaxy
+  - .galaxy-roles/
 skip_list:
   # https://github.com/ansible/ansible-lint/issues/2050
   - fqcn-builtins
