@@ -5,14 +5,10 @@
     dest: "{{ wiki_home_dir }}"
     version: main
 
-- name: Copy and decrypt configuration files # noqa: risky-file-permissions
+- name: Copy and decrypt configuration files
   ansible.builtin.copy:
     src: files/
     dest: "{{ wiki_home_dir }}"
-
-- name: Restrict .pem file permissions for wiki.js
-  ansible.builtin.file:
-    path: "{{ wiki_home_dir }}/wiki-data.pem"
     mode: "0600"
 
 - name: Start wiki service and dependencies # noqa: no-changed-when
